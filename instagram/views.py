@@ -33,6 +33,7 @@ def signup(request):
 def profile(request):
     current_user = request.user
     profile = Profile.objects.all()
+    images = request.user.profile.posts.all()
 
     if request.method == 'POST':
         u_form = UpdateUserForm(request.POST,instance=request.user)
@@ -50,30 +51,58 @@ def profile(request):
 
     context = {
         'u_form':u_form,
-        'p_form':p_form
+        'p_form':p_form,
+        'images':images
     }
 
     return render(request, 'registration/profile.html',locals())
 
 
+
+
+@login_required(login_url='login')
+def user_profile(request, username):
+    user_prof = get_object_or_404(User, username=username)
+    if request.user == user_prof:
+        return redirect('profile', username=request.user.username)
+    user_posts = user_prof.profile.posts.all()
+    
+    followers = Follow.objects.filter(followed=user_prof.profile)
+    follow_status = None
+    for follower in followers:
+        if request.user.profile == follower.follower:
+            follow_status = True
+        else:
+            follow_status = False
+    params = {
+        'user_prof': user_prof,
+        'user_posts': user_posts,
+        'followers': followers,
+        'follow_status': follow_status
+    }
+    print(followers)
+    return render(request, 'all-pics/user-profile.html', params)
+
+
+
+
 @login_required(login_url='login')
 def index(request):
-    # captions = Caption.objects.all()
-    # users = User.objects.exclude(id=request.user.id)
-    # if request.method == 'POST':
-    #     form = PostForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         post = form.save(commit=False)
-    #         post.user = request.user.profile
-    #         post.save()
-    #         return HttpResponseRedirect(request.path_info)
-    # else:
-    #     form = PostForm()
-    # params = {
-    #     'captions': captions,
-    #     'form': form,
-    #     'users': users,
+    captions = Caption.objects.all()
+    users = User.objects.exclude(id=request.user.id)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user.profile
+            post.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = PostForm()
+    params = {
+        'captions': captions,
+        'form': form,
+        'users': users,
 
-    # }
-    # return render(request, 'all-pics/index.html', params)
-    return render(request, 'all-pics/index.html')
+    }
+    return render(request, 'all-pics/index.html', params)

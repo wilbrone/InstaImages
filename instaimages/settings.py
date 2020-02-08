@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django.contrib.sites',
     'bootstrap4',
     'rest_framework',
     'crispy_forms',
+
 ]
 
 REST_FRAMEWORK = {
@@ -53,7 +55,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
-
+SITE_ID = 1
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
@@ -67,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.contrib.sites.middleware.CurrentSiteMiddleware'
 ]
 
 ROOT_URLCONF = 'instaimages.urls'
@@ -96,6 +99,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'instaimages.wsgi.application'
 
+GOOGLE_OAUTH2_CLIENT_SECRETS_JSON = 'client_secret.json'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -180,4 +184,3 @@ LOGOUT_REDIRECT_URL = 'login'
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
-
