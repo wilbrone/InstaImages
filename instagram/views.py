@@ -30,12 +30,6 @@ def signup(request):
 
 
 @login_required(login_url='login')
-def index(request):
-    # hoods = Neighborhood.objects.all()
-    return render(request, 'all-dtls/index.html')
-
-
-@login_required(login_url='login')
 def profile(request):
     current_user = request.user
     profile = Profile.objects.all()
@@ -48,7 +42,7 @@ def profile(request):
             u_form.save()
             p_form.save()
             
-            return render(request,'all-dtls/profile.html')
+            return render(request,'registration/profile.html')
     else:
         u_form = UpdateUserForm(instance=request.user)
         p_form = UpdateUserProfileForm(instance=request.user.profile)
@@ -59,4 +53,27 @@ def profile(request):
         'p_form':p_form
     }
 
-    return render(request, 'all-dtls/profile.html',locals())
+    return render(request, 'registration/profile.html',locals())
+
+
+@login_required(login_url='login')
+def index(request):
+    # captions = Caption.objects.all()
+    # users = User.objects.exclude(id=request.user.id)
+    # if request.method == 'POST':
+    #     form = PostForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         post = form.save(commit=False)
+    #         post.user = request.user.profile
+    #         post.save()
+    #         return HttpResponseRedirect(request.path_info)
+    # else:
+    #     form = PostForm()
+    # params = {
+    #     'captions': captions,
+    #     'form': form,
+    #     'users': users,
+
+    # }
+    # return render(request, 'all-pics/index.html', params)
+    return render(request, 'all-pics/index.html')
