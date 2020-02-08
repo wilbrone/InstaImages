@@ -31,8 +31,8 @@ def signup(request):
 
 @login_required(login_url='login')
 def index(request):
-    hoods = Neighborhood.objects.all()
-    return render(request, 'all-dtls/index.html',{'hoods':hoods})
+    # hoods = Neighborhood.objects.all()
+    return render(request, 'all-dtls/index.html')
 
 
 @login_required(login_url='login')
