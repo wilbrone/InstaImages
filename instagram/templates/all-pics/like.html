@@ -1,4 +1,3 @@
-{% for image in image %}
 <form action="{% url 'liked' image.id %}" method="post">
     {% csrf_token %}
     {% if is_liked %}
@@ -12,4 +11,3 @@
     {% endif %}
 </form>
 <span>{{ total_likes }} like{{ total_likes | pluralize}}</span>
-{% endfor %}

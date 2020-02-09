@@ -50,13 +50,11 @@
                     </a>
                 </div>
                 <div class="iconic ml-2">
-                    <div id="like-section">
-                        {% include 'all-pics/like.html' %}
-                    </div>
                     <button class="btn btn-sm" type="submit" name="image_id" value="{{caption.id}}">
-                        <a href="{% url 'comment' caption.id %}"><i class="far fa-heart hearticon mx-auto"
+                        <a href=""><i class="far fa-heart hearticon mx-auto"
                                                                   aria-hidden="true" style=""></i></a>
                     </button>
+
                     <button class="btn btn-sm" type="submit"><a href="{% url 'comment' caption.id %}"><i
                             class="far fa-comment hearticon mx-auto" aria-hidden="true"></i>
                     </a></button>
