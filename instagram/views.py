@@ -196,17 +196,22 @@ def like_post(request):
 def search_profile(request):
     if 'search_user' in request.GET and request.GET['search_user']:
         name = request.GET.get("search_user")
-        results = Profile.search_profile(name)
+
+        trial = User.objects.filter(username=name)[0]
+        print(trial.id)
+        ids = trial.id
+        results = Profile.objects.filter(user_id=ids)
         print(results)
+        
         message = f'name'
         params = {
             'results': results,
             'message': message
         }
-        return render(request, 'result.html', params)
+        return render(request, 'all-pics/results.html', params)
     else:
-        message = "You haven't searched for any image category"
-    return render(request, 'all-pics/result.html', {'message': message})
+        message = ""
+    return render(request, 'all-pics/results.html', {'message': message})
 
 
 def unfollow(request, to_unfollow):

@@ -32,7 +32,9 @@ class Profile(models.Model):
     def delete_profile(self):
         self.delete()
 
-
+    def search_profile(self,username):
+        users = User.objects.filter(username=username)
+        return users
 
 
 class Caption(models.Model):
