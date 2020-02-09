@@ -124,6 +124,7 @@ def post_comment(request, id):
             return HttpResponseRedirect(request.path_info)
     else:
         form = CommentForm()
+    
     params = {
         'image': image,
         'form': form,
@@ -198,11 +199,9 @@ def search_profile(request):
         name = request.GET.get("search_user")
 
         trial = User.objects.filter(username=name)[0]
-        print(trial.id)
         ids = trial.id
         results = Profile.objects.filter(user_id=ids)
-        print(results)
-        
+
         message = f'name'
         params = {
             'results': results,
@@ -211,6 +210,8 @@ def search_profile(request):
         return render(request, 'all-pics/results.html', params)
     else:
         message = ""
+
+
     return render(request, 'all-pics/results.html', {'message': message})
 
 
