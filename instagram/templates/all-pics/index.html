@@ -43,32 +43,35 @@
                     <a href="{% url 'user_profile' caption.user.user.username  %}" class="mt-4 user" style="text-decoration:none; color:black">{{caption.user.user.username|title}}</a>
                 </div>
                 <div class="card-body mb-4">
-                    <a href="">
+                    <a href="{% url 'comment' caption.id %}">
                         <div class="card-text" style="background-image:url({{ caption.image.url }});background-size: contain;position: sticky;">
                             <img src="{{caption.image.url}}" style="" class="card-img" width="100%"/>
                         </div>
                     </a>
                 </div>
                 <div class="iconic ml-2">
+                    <div id="like-section">
+                        {% include 'all-pics/like.html' %}
+                    </div>
                     <button class="btn btn-sm" type="submit" name="image_id" value="{{caption.id}}">
-                        <a href=""><i class="far fa-heart hearticon mx-auto"
+                        <a href="{% url 'comment' caption.id %}"><i class="far fa-heart hearticon mx-auto"
                                                                   aria-hidden="true" style=""></i></a>
                     </button>
-                    <button class="btn btn-sm" type="submit"><a href=""><i
+                    <button class="btn btn-sm" type="submit"><a href="{% url 'comment' caption.id %}"><i
                             class="far fa-comment hearticon mx-auto" aria-hidden="true"></i>
                     </a></button>
                 </div>
                 <span class="ml-4 mb-1"><strong>{{caption.likes.count}} like{{caption.likes.count|pluralize}}</strong></span>
                 <span class="text-secondary ml-4 viewall"><a href="{% url 'comment' caption.id %}">view all {{caption.comments.count}} comments{{image.comments.count|pluralize}}</a></span>
                 <div class="allcomments mb-4">
-                    {% comment %} {% for comment in caption.comments.all|slice:'2' %}
+                    {% for comment in caption.comments.all|slice:'2' %}
                     <div class="comment">
                         <div class="ml-4"><strong>{{ comment.user.user.username }}</strong> <span
                                 class="text-secondary">{{ comment.comment }}</span>
                         </div>
                     </div>
                     {% empty %}
-                    {% endfor %} {% endcomment %}
+                    {% endfor %}
                     <p class="text-secondary ml-4">{{caption.created|timesince}}</p>
                 </div>
             </div>
@@ -89,7 +92,7 @@
                                          width="45px" height="45px">
                                 </div>
                                 <div class="col-md-6 mr-2 mt-2">
-                                    <span><a href="">{{user.username}}</a></span>
+                                    <span><a href="{% url 'user_profile' user.username  %}">{{user.username}}</a></span>
                                 </div>
                                 <div class="col-md-4">
                                 </div>

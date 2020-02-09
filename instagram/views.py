@@ -214,7 +214,7 @@ def unfollow(request, to_unfollow):
         user_profile2 = Profile.objects.get(pk=to_unfollow)
         unfollow_d = Follow.objects.filter(follower=request.user.profile, followed=user_profile2)
         unfollow_d.delete()
-        return redirect('all-pics/user-profile', user_profile2.user.username)
+        return redirect('user_profile', user_profile2.user.username)
 
 
 def follow(request, to_follow):
@@ -222,4 +222,4 @@ def follow(request, to_follow):
         user_profile3 = Profile.objects.get(pk=to_follow)
         follow_s = Follow(follower=request.user.profile, followed=user_profile3)
         follow_s.save()
-        return redirect('all-pics/user-profile', user_profile3.user.username)
+        return redirect('user_profile', user_profile3.user.username)
