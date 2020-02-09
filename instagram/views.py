@@ -64,7 +64,7 @@ def profile(request):
 def user_profile(request, username):
     user_prof = get_object_or_404(User, username=username)
     if request.user == user_prof:
-        return redirect('profile', username=request.user.username)
+        return redirect('profile')
     user_posts = user_prof.profile.posts.all()
     
     followers = Follow.objects.filter(followed=user_prof.profile)
@@ -136,7 +136,6 @@ def post_comment(request, id):
 class PostLikeToggle(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         id = self.kwargs.get('id')
-        print(id)
         obj = get_object_or_404(Caption, pk=id)
         url_ = obj.get_absolute_url()
         user = self.request.user
