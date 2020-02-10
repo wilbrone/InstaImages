@@ -14,22 +14,31 @@ Deployed on Heroku
 ## BDD
 <!-- when users access this app they are prompted with the login page, here they can choose to either register for an account or login, if they have an account all ready. After login or signup the user is navigated to the home page where they get to see what other users have uploaded. They also get to like and or comment on the various photos posted. They can also choose to share their photos by uploading and allowing other to vie like and comment.
 The user can also update their profile. and get to upload profile pictures for their account. -->
-|   	      |   ##I	     |   ##O	        |REDIRECT |
-|----------	  |------------  |-------------     |------   |
-|Registration |username      |   	            |home page|
-|   	      |email         |   	            |         |
-|             |password      |                  |         |
-|----------   |------------  |--------------    |------   |
-|Login        |username      |                  |home page|
-|             |password      |                  |         |
-|----------   |------------  |-------------     |------   |
-|search       |search term   |search results    |         |
-|             |i.e username  |i.e available     |         |
-|             |              |users with the    |         |
-|             |              |searched username |         |
-|             |              |                  |         |
-
-
+|   	      |      I       |        O         |REDIRECT       |
+|----------	  |------------  |-------------     |------         |
+|Registration |username      |   	            |home page      |
+|   	      |email         |   	            |               |
+|             |password      |                  |               |
+|             |              |                  |               |
+|Login        |username      |                  |home page      |
+|             |password      |                  |               |
+|             |              |                  |               |
+|search       |search term   |search results    |search-results |
+|             |i.e username  |i.e available     |page           |
+|             |              |users with the    |               |
+|             |              |searched username |               |
+|             |              |                  |               |
+|upload new   |image         |                  |home page      |
+|image        |image caption |                  |               |
+|             |              |                  |               |
+|comment      |comment as    |comments and the  |               |
+|             |text          |username of the   |               |
+|             |              |user who added the|               |
+|             |              |comment           |               |
+|             |              |                  |               |
+|             |              |                  |               |
+|             |              |                  |               |
+|             |              |                  |               |
 
 
 ## Development server
