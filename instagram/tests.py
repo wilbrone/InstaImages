@@ -1,13 +1,15 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from .models import *
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login, authenticate
 
 # Create your tests here.
 
 
 class TestProfile(TestCase):
     def setUp(self):
-        self.user = User(id=1, username='charles', password = 'sahara')
+        self.user = User(username='charles', email = 'test@gmail.com', password = 'sahara')
         self.user.save()
 
         self.profile_test = Profile(id=1, name='image', profile_picture='default.jpg', bio='this is a test profile',user=self.user)
@@ -18,6 +20,19 @@ class TestProfile(TestCase):
     def test_save_profile(self):
         after = Profile.objects.all()
         self.assertTrue(len(after) > 0)
+
+    def test_secure_page(self):
+        trial = User.objects.all()
+        c = Client()
+        print(c.login(username='charles', password='sahara'))
+        print("*************************")
+        response = c.get('/', follow=True)
+        print(response)
+        print("*******************************")
+        user = User.objects.get(username='charles')
+        self.assertEqual(response.status_code, 200)
+        # self.assertEqual(response.context['email'], 'test@gmail.com')
+        # self.assertEqual(response.json()['email'], 'test@gmail.com')
 
 
 # class TestPost(TestCase):
